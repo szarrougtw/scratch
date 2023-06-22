@@ -28,7 +28,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        scope: ${{ needs.split-input.outputs.scopes }}
+        scope: ${{ fromJSON(needs.split-input.outputs.scopes) }}
     name: "${{ matrix.scope }}"
     steps:
       - shell: bash
