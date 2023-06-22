@@ -21,7 +21,7 @@ jobs:
           echo "scopes=`echo ${TEST_INPUT} | jq -Rc 'split(",")'`" >> $GITHUB_OUTPUT
           echo $GITHUB_OUTPUT
     outputs:
-      scopes: ${{ steps.split.ouputs.scopes }}
+      scopes: ${{ steps.split.outputs.scopes }}
   test-job:
     needs: split-input
     runs-on: ubuntu-latest
