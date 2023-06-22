@@ -28,7 +28,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        scope: ${{ fromJSON( env.scopes ) }}
+        scope: ${{ fromJSON( ${{ env.scopes }} ) }}
     name: "${{ matrix.scope }}"
     steps:
       - shell: bash
