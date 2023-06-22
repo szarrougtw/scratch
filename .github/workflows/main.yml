@@ -1,12 +1,7 @@
 name: "Test"
 
 on:
-  push:
-    inputs:
-      test_input:
-        description: "blah"
-        required: true
-        default: "abc,def,ghi"
+  push: {}
   workflow_dispatch:
     inputs:
       test_input:
@@ -21,9 +16,7 @@ jobs:
       - id: split
         shell: bash
         run: |
-          echo ${{ inputs.test_input }}
-          echo "scopes=`echo ${{ inputs.test_input }} | jq -Rc 'split(",")'`" >> $GITHUB_OUTPUT
-          cat $GITHUB_OUTPUT
+          echo "scopes=`echo ${{ inputs.test_input:"abc,def,ghi" }} | jq -Rc 'split(",")'`" >> $GITHUB_OUTPUT
     outputs:
       scopes: ${{ steps.split.ouputs.scopes }}
   test-job:
