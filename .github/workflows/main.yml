@@ -16,7 +16,9 @@ jobs:
       - id: split
         shell: bash
         run: |
-          echo "scopes=`echo ${{ inputs.test_input:-"abc,def,ghi" }} | jq -Rc 'split(",")'`" >> $GITHUB_OUTPUT
+          TEST_INPUT=${{ inputs.test_input }}
+          TEST_INPUT=${TEST_INPUT:-"abc,def,ghi"}
+          echo "scopes=`echo ${TEST_INPUT} | jq -Rc 'split(",")'`" >> $GITHUB_OUTPUT
     outputs:
       scopes: ${{ steps.split.ouputs.scopes }}
   test-job:
