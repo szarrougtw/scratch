@@ -15,12 +15,18 @@ on:
         default: "abc,def,ghi"
 
 jobs:
+  split-input:
+    runs-on: ubuntu-latest
+    shell: bash
+    run: |
+      echo "scopes=`jq -R 'split(",")' <<< ${{ inputs.test_input }}`" >> "$GITHUB_OUTPUT"
   test-job:
+    needs: split-input
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
       matrix:
-        scope: ${{ fromJSON( `jq -R 'split(",")' <<< ${{ inputs.test_input }}` ) }}
+        scope: ${{ fromJSON( needs.split-input.outputs.scopes ) }}
     name: "${{ matrix.scope }}"
     steps:
       - shell: bash
