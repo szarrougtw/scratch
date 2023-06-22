@@ -19,6 +19,7 @@ jobs:
           TEST_INPUT=${{ inputs.test_input }}
           TEST_INPUT=${TEST_INPUT:-"abc,def,ghi"}
           echo "scopes=`echo ${TEST_INPUT} | jq -Rc 'split(",")'`" >> $GITHUB_OUTPUT
+          echo $GITHUB_OUTPUT
     outputs:
       scopes: ${{ steps.split.ouputs.scopes }}
   test-job:
