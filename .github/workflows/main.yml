@@ -7,14 +7,14 @@ on:
         description: "blah"
         required: true
         default: "abc,def,ghi"
-        
+
 jobs:
   test-job:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
       matrix:
-        scope: ${{ fromJSON(inputs.test_input) }}
+        scope: ${{ fromJSON(echo ${{ inputs.test_input }} | jq 'split(",")') }}
     name: "${{ matrix.scope }}"
     steps:
       - name: blah
