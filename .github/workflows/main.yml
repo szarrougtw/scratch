@@ -1,0 +1,18 @@
+name: "Test"
+
+on:
+  workflow_dispatch:
+    inputs:
+      test_input:
+        description: "blah"
+        required: true
+        default: "abc,def,ghi"
+        
+jobs:
+  test-job:
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        scope: ${{ fromJSON(inputs.test_input) }}
+    name: "${{ matrix.scope }}"
