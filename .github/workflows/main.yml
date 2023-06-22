@@ -20,7 +20,8 @@ jobs:
     steps:
       - shell: bash
         run: |
-          echo "scopes=`echo ${{ inputs.test_input }} | jq -R 'split(",")'`" >> "$GITHUB_OUTPUT"
+          echo "scopes=`echo ${{ inputs.test_input }} | jq -R 'split(",")'`" >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
   test-job:
     needs: split-input
     runs-on: ubuntu-latest
