@@ -16,3 +16,8 @@ jobs:
       matrix:
         scope: ${{ fromJSON(inputs.test_input) }}
     name: "${{ matrix.scope }}"
+    steps:
+      - name: blah
+        shell: bash
+        run: |
+          echo ${{ matrix.scope }}
