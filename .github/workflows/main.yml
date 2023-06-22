@@ -20,7 +20,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        scope: ${{ fromJSON( `echo ${{ inputs.test_input }} | jq -R 'split(",")'` ) }}
+        scope: ${{ fromJSON( `jq -R 'split(",")' <<< ${{ inputs.test_input }}` ) }}
     name: "${{ matrix.scope }}"
     steps:
       - shell: bash
