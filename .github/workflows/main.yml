@@ -18,11 +18,14 @@ jobs:
   split-input:
     runs-on: ubuntu-latest
     steps:
-      - shell: bash
+      - id: split
+        shell: bash
         run: |
           echo ${{ inputs.test_input }}
           echo "scopes=`echo ${{ inputs.test_input }} | jq -Rc 'split(",")'`" >> $GITHUB_OUTPUT
           cat $GITHUB_OUTPUT
+    outputs:
+      - scopes: ${{ steps.split.ouputs.scopes }}
   test-job:
     needs: split-input
     runs-on: ubuntu-latest
