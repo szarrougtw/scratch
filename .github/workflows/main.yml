@@ -17,9 +17,10 @@ on:
 jobs:
   split-input:
     runs-on: ubuntu-latest
-    shell: bash
-    run: |
-      echo "scopes=`jq -R 'split(",")' <<< ${{ inputs.test_input }}`" >> "$GITHUB_OUTPUT"
+    steps:
+      - shell: bash
+        run: |
+          echo "scopes=`jq -R 'split(",")' <<< ${{ inputs.test_input }}`" >> "$GITHUB_OUTPUT"
   test-job:
     needs: split-input
     runs-on: ubuntu-latest
