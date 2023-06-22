@@ -1,6 +1,12 @@
 name: "Test"
 
 on:
+  push:
+    inputs:
+      test_input:
+        description: "blah"
+        required: true
+        default: "abc,def,ghi"
   workflow_dispatch:
     inputs:
       test_input:
