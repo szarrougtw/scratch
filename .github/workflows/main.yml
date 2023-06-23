@@ -4,7 +4,7 @@ on:
   push: {}
   workflow_dispatch:
     inputs:
-      test_input:
+      data_products:
         description: "blah"
         required: false
         default: ""
@@ -16,6 +16,20 @@ jobs:
       - id: split
         shell: bash
         run: |
-          TEST=${{ inputs.test_input }}
-          TEST=${ TEST:-"abc,def,ghi" }
-          echo ${ TEST }
+          DATA_PRODUCTS=${{ inputs.data_products }}
+          DATA_PRODUCTS=${DATA_PRODUCTS:-"activity,calories,cardio,sleep,workout"}
+          echo "data_products=`echo ${DATA_PRODUCTS} | jq -Rc 'split(",")'`" >> $GITHUB_OUTPUT
+    outputs:
+      data-products: ${{ steps.split.outputs.data_products }}
+  test-job:
+    needs: split-input
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        data-product: ${{ fromJSON(needs.split-input.outputs.data-products) }}
+    name: "${{ matrix.data-product }}"
+    steps:
+      - shell: bash
+        run: |
+          echo ${{ matrix.data-product }}
