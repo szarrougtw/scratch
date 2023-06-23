@@ -6,8 +6,8 @@ on:
     inputs:
       test_input:
         description: "blah"
-        required: true
-        default: "abc,def,ghi"
+        required: false
+        default: ""
 
 jobs:
   split-input:
@@ -16,19 +16,5 @@ jobs:
       - id: split
         shell: bash
         run: |
-          genv=`cat $GITHUB_ENV | grep 'default'`
-          echo $genv
-    outputs:
-      scopes: ${{ steps.split.outputs.scopes }}
-  test-job:
-    needs: split-input
-    runs-on: ubuntu-latest
-    strategy:
-      max-parallel: 1
-      matrix:
-        scope: ${{ fromJSON(needs.split-input.outputs.scopes) }}
-    name: "${{ matrix.scope }}"
-    steps:
-      - shell: bash
-        run: |
-          echo ${{ matrix.scope }}
+          TEST=${{ inputs.test_input:-"abc,def,ghi" }}
+          echo $TEST
