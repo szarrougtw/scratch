@@ -17,5 +17,5 @@ jobs:
         shell: bash
         run: |
           TEST=${{ inputs.test_input }}
-          TEST=${TEST:-"abc,def,ghi"}
-          echo $TEST
+          TEST=${ TEST:-"abc,def,ghi" }
+          echo ${ TEST }
