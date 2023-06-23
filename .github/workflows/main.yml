@@ -16,5 +16,6 @@ jobs:
       - id: split
         shell: bash
         run: |
-          TEST=${{ inputs.test_input:-"abc,def,ghi" }}
+          TEST=${{ inputs.test_input }}
+          TEST=${TEST:-"abc,def,ghi"}
           echo $TEST
