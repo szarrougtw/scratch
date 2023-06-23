@@ -16,7 +16,8 @@ jobs:
       - id: split
         shell: bash
         run: |
-          cat $GITHUB_ENV
+          genv=`cat $GITHUB_ENV`
+          echo $genv
     outputs:
       scopes: ${{ steps.split.outputs.scopes }}
   test-job:
