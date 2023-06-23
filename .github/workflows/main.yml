@@ -17,11 +17,6 @@ jobs:
         shell: bash
         run: |
           printenv
-          # TEST_INPUT=${{ inputs.test_input }}
-          # DEFAULT=${{ on.workflow_call.inputs.test_input.default }}
-          # TEST_INPUT=${TEST_INPUT:-$DEFAULT}
-          # echo "scopes=`echo ${TEST_INPUT} | jq -Rc 'split(",")'`" >> $GITHUB_OUTPUT
-          # echo $GITHUB_OUTPUT
     outputs:
       scopes: ${{ steps.split.outputs.scopes }}
   test-job:
