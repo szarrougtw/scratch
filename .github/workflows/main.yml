@@ -17,6 +17,7 @@ jobs:
         shell: bash
         run: |
           printenv
+          cat $GITHUB_ENV
     outputs:
       scopes: ${{ steps.split.outputs.scopes }}
   test-job:
